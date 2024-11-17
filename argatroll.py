@@ -1,6 +1,6 @@
 import tkinter as tk
 
-"""This will be the main program to run the game 'argatroll'
+"""This will be the main program behind the game 'argatroll'
 """
 
 class Gameboard:
@@ -24,6 +24,12 @@ class Gameboard:
         self.trolls.append(troll_coordinate)
         return troll_coordinate
 
+    def removing_troll(self, troll_coordinate):
+        """removing an existing troll from the trolls list
+        """
+        self.trolls.remove(troll_coordinate)
+        return troll_coordinate
+
     def changing_coordinates(self,new_troll_coordinate):
         """appending new coordinates to the occupied list,
         this is done by using the troll coordinate,
@@ -33,16 +39,16 @@ class Gameboard:
 
         changing_coordinates =  []
 
-        occupied_row = new_troll_coordinate[1]
-        occupied_column = new_troll_coordinate[0]
+        changing_row = new_troll_coordinate[1]
+        changing_column = new_troll_coordinate[0]
 
         #Horizontal and vertical to trolls coordinates are added to occupied list
         for i in range(1, self.size+1):
-            changing_coordinates.append((occupied_column,i))
-            changing_coordinates.append((i,occupied_row))
+            changing_coordinates.append((changing_column,i))
+            changing_coordinates.append((i,changing_row))
 
-        y = occupied_row
-        x = occupied_column
+        y = changing_row
+        x = changing_column
         for _ in range(x):
             y -= 1
 
@@ -58,7 +64,16 @@ class Gameboard:
             if self.size >= current_y2 > 0:
                 changing_coordinates.append((current_x,current_y2))
 
-        return changing_coordinates
+
+        #ignores doubles when appending to the tuple which is going to occupy
+        changing_tuple = []
+        for coordinate in changing_coordinates:
+            if coordinate in changing_tuple:
+                continue
+            else:
+                changing_tuple.append(coordinate)
+
+        return changing_tuple
         
     def occupying_coordinates(self):
         """All values connected to occupied coordinates 
@@ -160,7 +175,7 @@ def board_layout(coordinate_value,ending):
 def main():
     """Main function of the game
     """
-    size = 10
+    size = 4
 
     trolls = []
     list_of_occupied_coordinates = []
@@ -178,6 +193,7 @@ def main():
     for _ in range(1,size+1):
 
         game1.reseting_coordinate_values()
+        print(game1.occupied_list)
 
         troll_x_coordinate = int(input("X-värde: "))
         troll_y_coordinate = int(input("Y-värde: "))
@@ -196,7 +212,7 @@ def main():
                 continue
         elif move == "undo":
 
-            new_coordinates = game1.changing_coordinates(game1.adding_troll(troll_position))
+            new_coordinates = game1.changing_coordinates(game1.removing_troll(troll_position))
             game1.changing_occupied_list(new_coordinates,move)
             printing_board_in_terminal(game1.occupying_coordinates(),board_layout,size)
 
