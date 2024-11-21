@@ -7,7 +7,7 @@ class Gameboard:
     """Class of the gameboard in which the trolls can be added
     
     """
-    def __init__(self,size,coordinates, array,trolls,list_of_occupied_coordinates):
+    def __init__(self,size,coordinates, array):
         """A gameboard has size in whch the square array can be made,
         trolls is a list of all the placed trolls,
         the occupied list is a list of coordinates on which no trolls can be placed
@@ -15,8 +15,8 @@ class Gameboard:
         self.size = size
         self.coordinates = coordinates
         self.board = array
-        self.trolls = trolls
-        self.occupied_list = list_of_occupied_coordinates
+        self.trolls = []
+        self.occupied_list = []
     
     def adding_troll(self,troll_coordinate):
         """appending a new troll to the trolls list¨
@@ -44,13 +44,12 @@ class Gameboard:
 
         #Horizontal and vertical to trolls coordinates are added to occupied list
         for i in range(1, self.size+1):
-            changing_coordinates.append((changing_column,i))
-            changing_coordinates.append((i,changing_row))
+            changing_coordinates.append((changing_column,i)) #Horizontal
+            changing_coordinates.append((i,changing_row)) #Vertical
 
-        y = changing_row
+
         x = changing_column
-        for _ in range(x):
-            y -= 1
+        y = changing_row - x
 
         #Diagonal coordinates are added to occupied list
         for current_x in range(0,self.size+1):
@@ -97,12 +96,7 @@ class Gameboard:
     def angry_troll_check(self,troll_position):
         """Check if the coordinate is already occupied
         """
-        if troll_position in self.trolls:
-            print("Already troll here!")
-            return False
-        
         if troll_position in self.occupied_list:
-            print("Trolls got angry!")
             return False
         else:
             return True
@@ -145,13 +139,13 @@ def coordinate_values(coordinates):
 def printing_board_in_terminal(current_coordinates,board_layout,size):
     """Creates a square gameboard in the terminal with the help of the 'board_layout()
     """
-    size = int(len(current_coordinates) ** 0.5)
+    size = int(len(current_coordinates) ** 0.5) #the number of coordinates are the square of the side length
 
-    y_coordinate = size
+    y_coordinate = 1
 
     print("_"*size*3)
 
-    while y_coordinate > 0:
+    while y_coordinate <= size:
 
         for x_coordinate in range(1,size+1):
 
@@ -160,7 +154,7 @@ def printing_board_in_terminal(current_coordinates,board_layout,size):
             else:
                 board_layout(current_coordinates[(x_coordinate,y_coordinate)],"")
         
-        y_coordinate -= 1
+        y_coordinate += 1
 
 def board_layout(coordinate_value,ending):
     """prints the visual for each coordinate, if the coordinate is occupied it prints a x aswell
@@ -175,17 +169,14 @@ def board_layout(coordinate_value,ending):
 def main():
     """Main function of the game
     """
-    size = 4
-
-    trolls = []
-    list_of_occupied_coordinates = []
+    size = 10
     array = {}
     coordinates = []
 
     coordinates = coordinate_system(size)
     printing_board_in_terminal(array, board_layout,size)
 
-    game1 = Gameboard(size,coordinates,array,trolls,list_of_occupied_coordinates)
+    game1 = Gameboard(size,coordinates,array)
 
     game1.reseting_coordinate_values()
     printing_board_in_terminal(game1.occupying_coordinates(), board_layout,size)
@@ -193,7 +184,6 @@ def main():
     for _ in range(1,size+1):
 
         game1.reseting_coordinate_values()
-        print(game1.occupied_list)
 
         troll_x_coordinate = int(input("X-värde: "))
         troll_y_coordinate = int(input("Y-värde: "))

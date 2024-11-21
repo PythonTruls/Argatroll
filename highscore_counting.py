@@ -23,9 +23,10 @@ def stop_watch_2():
     start = 0
     sleep = 0.1
 
-    while start < 20:
+    while start < 5:
         time.sleep(sleep)
         start += sleep
+        print(round(start),2)
 
     return start
 
