@@ -1,8 +1,12 @@
 The year is 1578 and the troll species 'mad men' are going extinct.
-You are working as a researcher for the kings laboratort on a mission to get the species on track again.
-Altough, as their name suggest they are easily aggrevated by the sight of a felllow troll.
-Your goal is to place out all the trolls in your possession without making them angry.
+You are working as a researcher for the kings laboratort 
+on a mission to get the species on track again.
+Altough, as their name suggest they are easily 
+aggrevated by the sight of a felllow troll.
+Your goal is to place out all the trolls in 
+your possession without making them angry.
 
 These are the rules:
-You may place one troll at a time (per row)
-Trolls get mad when they see another troll in the same row, column or diagonal
+1. You may place one troll at a time (per row)
+2. Trolls get mad when they see another troll in the same row, 
+   column or diagonal

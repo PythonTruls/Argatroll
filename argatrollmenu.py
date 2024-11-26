@@ -2,20 +2,17 @@
 """
 
 def welcoming_the_player():
+    message = {}
+    i = 0
     with open('game_text.txt',mode="r") as file:
         for line in file:
-            print(line)
-
-    player_name = input("Your name: ")
-    return player_name
-
-def rules_of_the_game(player_name):
-    print(f"Alright {player_name}!")
-    
-
+            message[i] = line
+            i += 1
+    return message
+            
 
 def main():
-    rules_of_the_game(welcoming_the_player())
+    welcoming_the_player()
 
 if __name__ == "__main__":
     main() 

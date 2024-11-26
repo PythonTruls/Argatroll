@@ -73,6 +73,8 @@ class Gameboard:
                 changing_tuple.append(coordinate)
 
         return changing_tuple
+    
+
         
     def occupying_coordinates(self):
         """All values connected to occupied coordinates 
