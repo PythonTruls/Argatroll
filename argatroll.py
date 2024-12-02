@@ -103,6 +103,23 @@ class Gameboard:
         else:
             return True
         
+    def limiting_to_one_row(self, troll_position):
+        """Checks if the requested placement is on the right row
+        """
+
+        requested_row = troll_position[0]
+
+        try:
+            current_row = self.trolls[-1][0]
+            current_row += 1
+            if requested_row == current_row or requested_row == current_row -1:
+                return True
+            else:
+                return False
+        except IndexError:
+            return True
+    
+
     def reseting_coordinate_values(self):
         """Creates a dictionary where the coordinates are keys which are assigned with the values 1
         """

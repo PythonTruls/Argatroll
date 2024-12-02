@@ -30,13 +30,15 @@ def stop_watch_2():
 
     return start
 
-def highscore_appending(score,player_name):
+def highscore_appending(score,player_name,size):
+
+    playetime = round((score[1]-score[0]),2)
 
     highscore_dictionary = []
-    dictkeys = ['highscore', 'playername']
+    dictkeys = ['highscore', 'playername','gamesize']
 
 
-    highscore_dictionary.append({'highscore':score,'playername':player_name})
+    highscore_dictionary.append({'highscore':playetime,'playername':player_name,'gamesize':size})
 
 
     with open('highscore.csv', mode="r", newline="") as file:
@@ -58,7 +60,3 @@ def highscore_appending(score,player_name):
         for player in sorted(highscore_dictionary, key=lambda player: float(player['highscore'])):
             writer.writerow(player)
 
-
-score = stop_watch_1()
-
-highscore_appending(score,"ahakn")
