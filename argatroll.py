@@ -4,9 +4,9 @@ import tkinter as tk
 """
 
 class Gameboard:
-    """Class of the gameboard in which the trolls can be added
-    
+    """Class which creates an object that has all methods needed for a game of arga troll to be played
     """
+
     def __init__(self,size,coordinates, array):
         """A gameboard has size in whch the square array can be made,
         trolls is a list of all the placed trolls,
@@ -31,10 +31,11 @@ class Gameboard:
         return troll_coordinate
 
     def changing_coordinates(self,new_troll_coordinate):
-        """appending new coordinates to the occupied list,
-        this is done by using the troll coordinate,
+        """Creating a tuple list of coordinates affected by a specific trolls position,
+        by using the troll coordinate:
         all coordinates with the same y-value are occupied,
-        all coordinates with the same x-value are occupied
+        all coordinates with the same x-value are occupied,
+        all coordinates in the diagonals from specific position
         """
 
         changing_coordinates =  []
@@ -64,7 +65,7 @@ class Gameboard:
                 changing_coordinates.append((current_x,current_y2))
 
 
-        #ignores doubles when appending to the tuple which is going to occupy
+        #ignores doubles when appending to the tuple list which is returned
         changing_tuple = []
         for coordinate in changing_coordinates:
             if coordinate in changing_tuple:
@@ -77,7 +78,7 @@ class Gameboard:
 
         
     def occupying_coordinates(self):
-        """All values connected to occupied coordinates 
+        """All values connected to occupied key-coordinates 
         in the array dictionary are turned to 0s
         """
         for coordinate in self.occupied_list:
@@ -86,6 +87,11 @@ class Gameboard:
         return self.board
     
     def changing_occupied_list(self, changing_list, type_of_change):
+        """Chaning the coordinates, in the occupied_list,
+        defined by the changing_list from function 'changing_coordinates'
+        either by removing them (undo)
+        or adding them (occupy)
+        """
         
         if type_of_change == "occupy":
             for coordinate in changing_list:
@@ -96,7 +102,7 @@ class Gameboard:
 
 
     def angry_troll_check(self,troll_position):
-        """Check if the coordinate is already occupied
+        """Check if the coordinate is already in the occupied_list
         """
         if troll_position in self.occupied_list:
             return False
@@ -105,23 +111,31 @@ class Gameboard:
         
     def limiting_to_one_row(self, troll_position):
         """Checks if the requested placement is on the right row
+        in which actions can be made
         """
 
         requested_row = troll_position[0]
 
-        try:
-            current_row = self.trolls[-1][0]
-            current_row += 1
-            if requested_row == current_row or requested_row == current_row -1:
-                return True
-            else:
-                return False
-        except IndexError:
-            return True
+        match len(self.trolls): 
+            case 0: #Special conditions if the board is empty
+                if requested_row == 1:
+                    return True
+                else:
+                    return False
+   
+            case _:
+                current_row = self.trolls[-1][0] #the row in which last troll was placed
+                next_row = current_row +1 #the row in which next troll can be placed
+                if requested_row == next_row or requested_row == current_row:
+                    return True
+                else:
+                    return False
+
+        
     
 
     def reseting_coordinate_values(self):
-        """Creates a dictionary where the coordinates are keys which are assigned with the values 1
+        """Cangng all values to the keys to 1
         """
 
         for coordinate in self.coordinates:
@@ -133,13 +147,13 @@ def coordinate_system(size):
     """Creates an square array of x and y coordinates
     """
 
-    coordinates = []
+    coordinates = [] 
     
     x = 0
 
     while x < size:
         x += 1
-        for y in range(1,size+1):
+        for y in range(1,size+1): #iterates through all coordinates within the current x-row
             coordinates.append((x,y))
 
     return coordinates

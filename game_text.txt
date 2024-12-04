@@ -10,3 +10,5 @@ These are the rules:
 1. You may place one troll at a time (per row)
 2. Trolls get mad when they see another troll in the same row, 
    column or diagonal
+
+Choose the size of your game board, nxn

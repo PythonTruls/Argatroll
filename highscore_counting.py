@@ -33,6 +33,8 @@ def stop_watch_2():
 def highscore_appending(score,player_name,size):
 
     playetime = round((score[1]-score[0]),2)
+    if playetime > 10000:
+        return
 
     highscore_dictionary = []
     dictkeys = ['highscore', 'playername','gamesize']
