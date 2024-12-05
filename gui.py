@@ -316,8 +316,8 @@ class Argatroll(tk.Tk):
         self.container = tk.Frame(self) #creates a frame, root is itself since it has inherited from Tk
         self.container.pack(side="top",fill="both",expand=True) #this places frame on the top, fills both ways and expands if root is resized
 
-        self.container.grid_rowconfigure(0, weight = 1)
-        self.container.grid_columnconfigure(0, weight = 1)
+        self.container.grid_rowconfigure(0, weight = 1)#this configures how the rows will look, starting at 0
+        self.container.grid_columnconfigure(0, weight = 1)#configures the columns in the same manner, and how they will be interacted with
 
         self.frame_container = {} #dictionary using class name as key and object as value
         frame1 = Welcomemenu(self.container,self) #first frame is the welcome menu
@@ -361,9 +361,9 @@ class Argatroll(tk.Tk):
 def main():
     """main function starts the loop to showcase the root
     """
-    app = Argatroll()
-    app.title("Arga troll")
-    app.geometry("2500x1500")
-    app.mainloop()
+    app_argatroll = Argatroll()
+    app_argatroll.title("Arga troll")
+    app_argatroll.geometry("2500x1500")
+    app_argatroll.mainloop()
 
 main()
